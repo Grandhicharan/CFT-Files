@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  myEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      KeyName: "mumbai-keypair"
+      DisableApiTermination: false
+      ImageId: "ami-0b08bfc6ff7069aff"
+      InstanceType: "t3.micro"
+      Monitoring: false
+      SecurityGroupIds:
+        - "sg-07a7396a47e218869"
+      UserData:  !Base64 |
+          #!/bin/bash
+          yum update -y
+          yum install -y httpd
+          echo "<html><body><h1>"amazing - Hello world from $(hostname -s)</h1></body></html>"
+          systemctl start httpd
+          systemctl enable httpd 
+      Tags:
+        - Key: Name
+          Value: ec2-instanctyperadio

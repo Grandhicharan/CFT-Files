@@ -1,0 +1,27 @@
+myEC2Instance:
+  Type: AWS::EC2::Instance
+  Properties:
+    AvailabilityZone : "ap-south-1c"
+    keypair : "mumbai-keypair"
+    region: "ap-south-1"
+    instance name : instance-wissen
+    ImageId: "ami-0b08bfc6ff7069aff" 
+    InstanceType: "t3.micro"
+    NetworkInterfaces :
+    SubnetId: "subnet-0504d506077373bfc"
+    AssociatePublicIpAddress: false
+    GroupSet:
+       - "sg-07a7396a47e218869"
+    ec2Volume:
+      Type: AWS::EC2::Volume
+      Properties:
+        AutoEnableIO: true|false
+        AvailabilityZone: "ap-south-1c"
+        Encrypted: true|false
+        KmsKeyId: 
+        Size: 10
+        SnapshotId: snap-
+        VolumeType: standard|io1|gp2
+        Tags:
+          - Key: key
+            Value: value

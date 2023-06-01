@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  myEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+     AvailabilityZone: "ap-south-1c"
+     ImageId: "ami-078efad6f7ec18b8a"
+     InstanceType: "t3.micro"
+     KeyName: "mumbai-keypair"
+     SecurityGroupIds:
+       - "sg-07a7396a47e218869"
+     UserData:  !Base64 |
+       #!/bin/bash
+       yum update -y
+       yum install httpd -y
+       systemctl start httpd 
+       systemctl enable httpd
+
+     Tags:
+       - Key: Name 
+         Value: ec2-instance1
+  mySecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow HTTP access
+      SecurityGroupIngress:
+        - IpProtocol: Tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+  s3Bucket:
+    Type: AWS::S3::Bucket
+    Properties: 
+      AccessControl: Private
+      BucketName: "s3bucketcharlie"
+      Tags:
+        - Key: Name
+          Value: "s3bucket11"
+  
+
+
+
+   

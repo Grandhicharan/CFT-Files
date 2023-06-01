@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+
+      AvailabilityZone: "ap-south-1c"
+      ImageId: "ami-0b08bfc6ff7069aff"
+      InstanceType: "t3.micro"
+      KeyName: "mumbai-keypair"
+      NetworkInterfaces:
+        - DeviceIndex: "0"
+          SubnetId: "subnet-0504d506077373bfc"
+          AssociatePublicIpAddress: true
+          GroupSet:
+            - "sg-07a7396a47e218869"
+      BlockDeviceMappings:
+      - DeviceName: "/dev/sda1"
+        Ebs:
+            VolumeSize: 10
+            VolumeType: gp3
+            DeleteOnTermination: false
+      - DeviceName: "/dev/xvda"
+        Ebs: 
+            VolumeSize: 10
+            VolumeType: gp3
+            DeleteOnTermination: false
+      Tags:
+         - Key: Name
+           Value: instancewissen
+
+
+           
+         
